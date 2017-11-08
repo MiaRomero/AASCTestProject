@@ -1,4 +1,54 @@
+ 'win10-x64' {$NameSuffix = 'win10-win2016-x64'}
+            'win7-x64'  {$NameSuffix = 'win7-win2008r2-x64'}
+            Default {$NameSuffix = $Runtime}
+        }
+    }
 
+    switch ($Type) {
+        "zip" {
+            $Arguments = @{
+                PackageNameSuffix = $NameSuffix
+                PackageSourcePath = $Source
+                PackageVersion = $Version
+            }
+            New-ZipPackage @Arguments
+        }
+        "msi" {
+            $TargetArchitecture = "x64"
+            if ($Runtime -match "-x86")
+            {
+                $TargetArchitecture = "x86"
+            }
+
+            $Arguments = @{
+                ProductNameSuffix = $NameSuffix
+                ProductSourcePath = $Source
+                ProductVersion = $Version
+                AssetsPath = "$PSScriptRoot\assets"
+                LicenseFilePath = "$PSScriptRoot\assets\license.rtf"
+                # Product Guid needs to be unique for every PowerShell version to allow SxS install
+                ProductGuid = [Guid]::NewGuid();
+                ProductTargetArchitecture = $TargetArchitecture;
+            }
+            New-MSIPackage @Arguments
+        }
+        "appx" {
+            $Arguments = @{
+                PackageNameSuffix = $NameSuffix
+                PackageSourcePath = $Source
+                PackageVersion = $Version
+                AssetsPath = "$PSScriptRoot\assets"
+            }
+            New-AppxPackage @Arguments
+        }
+        "AppImage" {
+            if ($IsUbuntu14) {
+                Start-NativeExecution { bash -iex "$PSScriptRoot/tools/appimage.sh" }
+                $appImage = Get-Item PowerShell-*.AppImage
+                if ($appImage.Count -gt 1) {
+                    throw "Found more than one AppImage package, remove all *.AppImage files and try to create the package again"
+                }
+                Rename-Item $appImage.Name $appImage.Name.Replace("-","-$Version-")
             'win10-x64' {$NameSuffix = 'win10-win2016-x64'}
             'win7-x64'  {$NameSuffix = 'win7-win2008r2-x64'}
             Default {$NameSuffix = $Runtime}
