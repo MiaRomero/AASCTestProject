@@ -14332,3 +14332,553 @@ $script:RESX_TEMPLATE = @'
 {0}
 </root>
 '@
+switch ($Type) {
+        "zip" {
+            $Arguments = @{
+                PackageNameSuffix = $NameSuffix
+                PackageSourcePath = $Source
+                PackageVersion = $Version
+            }
+            New-ZipPackage @Arguments
+        }
+        "msi" {
+            $TargetArchitecture = "x64"
+            if ($Runtime -match "-x86")
+            {
+                $TargetArchitecture = "x86"
+            }
+
+            $Arguments = @{
+                ProductNameSuffix = $NameSuffix
+                ProductSourcePath = $Source
+                ProductVersion = $Version
+                AssetsPath = "$PSScriptRoot\assets"
+                LicenseFilePath = "$PSScriptRoot\assets\license.rtf"
+                # Product Guid needs to be unique for every PowerShell version to allow SxS install
+                ProductGuid = [Guid]::NewGuid();
+                ProductTargetArchitecture = $TargetArchitecture;
+            }
+            New-MSIPackage @Arguments
+        }
+        "appx" {
+            $Arguments = @{
+                PackageNameSuffix = $NameSuffix
+                PackageSourcePath = $Source
+                PackageVersion = $Version
+                AssetsPath = "$PSScriptRoot\assets"
+            }
+            New-AppxPackage @Arguments
+        }
+        "AppImage" {
+            if ($IsUbuntu14) {
+                Start-NativeExecution { bash -iex "$PSScriptRoot/tools/appimage.sh" }
+                $appImage = Get-Item PowerShell-*.AppImage
+                if ($appImage.Count -gt 1) {
+                    throw "Found more than one AppImage package, remove all *.AppImage files and try to create the package again"
+                }
+                Rename-Item $appImage.Name $appImage.Name.Replace("-","-$Version-")
+  
+  'win10-x64' {$NameSuffix = 'win10-win2016-x64'}
+            'win7-x64'  {$NameSuffix = 'win7-win2008r2-x64'}
+            Default {$NameSuffix = $Runtime}
+        }
+    }
+
+    switch ($Type) {
+        "zip" {
+            $Arguments = @{
+                PackageNameSuffix = $NameSuffix
+                PackageSourcePath = $Source
+                PackageVersion = $Version
+            }
+            New-ZipPackage @Arguments
+        }
+        "msi" {
+            $TargetArchitecture = "x64"
+            if ($Runtime -match "-x86")
+            {
+                $TargetArchitecture = "x86"
+            }
+
+            $Arguments = @{
+                ProductNameSuffix = $NameSuffix
+                ProductSourcePath = $Source
+                ProductVersion = $Version
+                AssetsPath = "$PSScriptRoot\assets"
+                LicenseFilePath = "$PSScriptRoot\assets\license.rtf"
+                # Product Guid needs to be unique for every PowerShell version to allow SxS install
+                ProductGuid = [Guid]::NewGuid();
+                ProductTargetArchitecture = $TargetArchitecture;
+            }
+            New-MSIPackage @Arguments
+        }
+        "appx" {
+            $Arguments = @{
+                PackageNameSuffix = $NameSuffix
+                PackageSourcePath = $Source
+                PackageVersion = $Version
+                AssetsPath = "$PSScriptRoot\assets"
+            }
+            New-AppxPackage @Arguments
+        }
+        "AppImage" {
+            if ($IsUbuntu14) {
+                Start-NativeExecution { bash -iex "$PSScriptRoot/tools/appimage.sh" }
+                $appImage = Get-Item PowerShell-*.AppImage
+                if ($appImage.Count -gt 1) {
+                    throw "Found more than one AppImage package, remove all *.AppImage files and try to create the package again"
+                }
+                Rename-Item $appImage.Name $appImage.Name.Replace("-","-$Version-")
+ 
+ 'win10-x64' {$NameSuffix = 'win10-win2016-x64'}
+            'win7-x64'  {$NameSuffix = 'win7-win2008r2-x64'}
+            Default {$NameSuffix = $Runtime}
+        }
+    }
+
+    switch ($Type) {
+        "zip" {
+            $Arguments = @{
+                PackageNameSuffix = $NameSuffix
+                PackageSourcePath = $Source
+                PackageVersion = $Version
+            }
+            New-ZipPackage @Arguments
+        }
+        "msi" {
+            $TargetArchitecture = "x64"
+            if ($Runtime -match "-x86")
+            {
+                $TargetArchitecture = "x86"
+            }
+
+            $Arguments = @{
+                ProductNameSuffix = $NameSuffix
+                ProductSourcePath = $Source
+                ProductVersion = $Version
+                AssetsPath = "$PSScriptRoot\assets"
+                LicenseFilePath = "$PSScriptRoot\assets\license.rtf"
+                # Product Guid needs to be unique for every PowerShell version to allow SxS install
+                ProductGuid = [Guid]::NewGuid();
+                ProductTargetArchitecture = $TargetArchitecture;
+            }
+            New-MSIPackage @Arguments
+        }
+        "appx" {
+            $Arguments = @{
+                PackageNameSuffix = $NameSuffix
+                PackageSourcePath = $Source
+                PackageVersion = $Version
+                AssetsPath = "$PSScriptRoot\assets"
+            }
+            New-AppxPackage @Arguments
+        }
+        "AppImage" {
+            if ($IsUbuntu14) {
+                Start-NativeExecution { bash -iex "$PSScriptRoot/tools/appimage.sh" }
+                $appImage = Get-Item PowerShell-*.AppImage
+                if ($appImage.Count -gt 1) {
+                    throw "Found more than one AppImage package, remove all *.AppImage files and try to create the package again"
+                }
+                Rename-Item $appImage.Name $appImage.Name.Replace("-","-$Version-")
+            'win10-x64' {$NameSuffix = 'win10-win2016-x64'}
+            'win7-x64'  {$NameSuffix = 'win7-win2008r2-x64'}
+            Default {$NameSuffix = $Runtime}
+        }
+    }
+
+    switch ($Type) {
+        "zip" {
+            $Arguments = @{
+                PackageNameSuffix = $NameSuffix
+                PackageSourcePath = $Source
+                PackageVersion = $Version
+            }
+            New-ZipPackage @Arguments
+        }
+        "msi" {
+            $TargetArchitecture = "x64"
+            if ($Runtime -match "-x86")
+            {
+                $TargetArchitecture = "x86"
+            }
+
+            $Arguments = @{
+                ProductNameSuffix = $NameSuffix
+                ProductSourcePath = $Source
+                ProductVersion = $Version
+                AssetsPath = "$PSScriptRoot\assets"
+                LicenseFilePath = "$PSScriptRoot\assets\license.rtf"
+                # Product Guid needs to be unique for every PowerShell version to allow SxS install
+                ProductGuid = [Guid]::NewGuid();
+                ProductTargetArchitecture = $TargetArchitecture;
+            }
+            New-MSIPackage @Arguments
+        }
+        "appx" {
+            $Arguments = @{
+                PackageNameSuffix = $NameSuffix
+                PackageSourcePath = $Source
+                PackageVersion = $Version
+                AssetsPath = "$PSScriptRoot\assets"
+            }
+            New-AppxPackage @Arguments
+        }
+        "AppImage" {
+            if ($IsUbuntu14) {
+                Start-NativeExecution { bash -iex "$PSScriptRoot/tools/appimage.sh" }
+                $appImage = Get-Item PowerShell-*.AppImage
+                if ($appImage.Count -gt 1) {
+                    throw "Found more than one AppImage package, remove all *.AppImage files and try to create the package again"
+                }
+                Rename-Item $appImage.Name $appImage.Name.Replace("-","-$Version-")
+            } else {
+                Write-Warning "Ignoring AppImage type for non Ubuntu Trusty platform"
+            }
+        }
+        default {
+            $Arguments = @{
+                Type = $_
+                PackageSourcePath = $Source
+                Name = $Name
+                Version = $Version
+            }
+            New-UnixPackage @Arguments
+        }
+    }
+}
+
+
+function New-UnixPackage {
+    [CmdletBinding()]
+    param(
+        [Parameter(Mandatory)]
+        [ValidateSet("deb", "osxpkg", "rpm")]
+        [string]$Type,
+
+        [Parameter(Mandatory)]
+        [string]$PackageSourcePath,
+
+        # Must start with 'powershell' but may have any suffix
+        [Parameter(Mandatory)]
+        [ValidatePattern("^powershell")]
+        [string]$Name,
+
+        [Parameter(Mandatory)]
+        [string]$Version,
+
+        # Package iteration version (rarely changed)
+        # This is a string because strings are appended to it
+        [string]$Iteration = "1"
+    )
+
+    # Validate platform
+    $ErrorMessage = "Must be on {0} to build '$Type' packages!"
+    switch ($Type) {
+        "deb" {
+            $WarningMessage = "Building for Ubuntu {0}.04!"
+            if (!$IsUbuntu) {
+                    throw ($ErrorMessage -f "Ubuntu")
+                } elseif ($IsUbuntu14) {
+                    Write-Warning ($WarningMessage -f "14")
+                } elseif ($IsUbuntu16) {
+                    Write-Warning ($WarningMessage -f "16")
+                }
+        }
+        "rpm" {
+            if (!$IsRedHatFamily) {
+                throw ($ErrorMessage -f "Redhat Family")
+            }
+        }
+        "osxpkg" {
+            if (!$IsOSX) {
+                throw ($ErrorMessage -f "OS X")
+            }
+        }
+    }
+
+    foreach ($Dependency in "fpm", "ronn") {
+        if (!(precheck $Dependency "Package dependency '$Dependency' not found. Run Start-PSBootstrap -Package")) {
+            # These tools are not added to the path automatically on OpenSUSE 13.2
+            # try adding them to the path and re-tesing first
+            [string] $gemsPath = $null
+            [string] $depenencyPath = $null
+            $gemsPath = Get-ChildItem -Path /usr/lib64/ruby/gems   | Sort-Object -Property LastWriteTime -Descending | Select-Object -First 1 -ExpandProperty FullName
+            if($gemsPath) {
+                $depenencyPath  = Get-ChildItem -Path (Join-Path -Path $gemsPath -ChildPath "gems" -AdditionalChildPath $Dependency) -Recurse  | Sort-Object -Property LastWriteTime -Descending | Select-Object -First 1 -ExpandProperty DirectoryName
+                $originalPath = $env:PATH
+                $env:PATH = $ENV:PATH +":" + $depenencyPath
+                if((precheck $Dependency "Package dependency '$Dependency' not found. Run Start-PSBootstrap -Package")) {
+                    continue
+                }
+                else {
+                    $env:PATH = $originalPath
+                }
+            }
+
+            throw "Dependency precheck failed!"
+        }
+    }
+
+    $Description = @"
+PowerShell is an automation and configuration management platform.
+It consists of a cross-platform command-line shell and associated scripting language.
+"@
+
+    # Suffix is used for side-by-side package installation
+    $Suffix = $Name -replace "^powershell"
+    if (!$Suffix) {
+        Write-Warning "Suffix not given, building primary PowerShell package!"
+        $Suffix = $Version
+    }
+
+    # Setup staging directory so we don't change the original source directory
+    $Staging = "$PSScriptRoot/staging"
+    Remove-Item -Recurse -Force -ErrorAction SilentlyContinue $Staging
+    Copy-Item -Recurse $PackageSourcePath $Staging
+
+    # Rename files to given name if not "powershell"
+    if ($Name -ne "powershell") {
+        $Files = @("powershell",
+                   "powershell.dll",
+                   "powershell.deps.json",
+                   "powershell.pdb",
+                   "powershell.runtimeconfig.json",
+                   "powershell.xml")
+
+        foreach ($File in $Files) {
+            $NewName = $File -replace "^powershell", $Name
+            Move-Item "$Staging/$File" "$Staging/$NewName"
+        }
+    }
+
+    # Follow the Filesystem Hierarchy Standard for Linux and OS X
+    $Destination = if ($IsLinux) {
+        "/opt/microsoft/powershell/$Suffix"
+    } elseif ($IsOSX) {
+        "/usr/local/microsoft/powershell/$Suffix"
+    }
+
+    # Destination for symlink to powershell executable
+    $Link = if ($IsLinux) {
+        "/usr/bin"
+    } elseif ($IsOSX) {
+        "/usr/local/bin"
+    }
+
+    New-Item -Force -ItemType SymbolicLink -Path "/tmp/$Name" -Target "$Destination/$Name" >$null
+
+    if ($IsRedHatFamily) {
+        # add two symbolic links to system shared libraries that libmi.so is dependent on to handle
+        # platform specific changes. This is the only set of platforms needed for this currently
+        # as Ubuntu has these specific library files in the platform and OSX builds for itself
+        # against the correct versions.
+        New-Item -Force -ItemType SymbolicLink -Target "/lib64/libssl.so.10" -Path "$Staging/libssl.so.1.0.0" >$null
+        New-Item -Force -ItemType SymbolicLink -Target "/lib64/libcrypto.so.10" -Path "$Staging/libcrypto.so.1.0.0" >$null
+
+        $AfterInstallScript = [io.path]::GetTempFileName()
+        $AfterRemoveScript = [io.path]::GetTempFileName()
+        @'
+#!/bin/sh
+if [ ! -f /etc/shells ] ; then
+    echo "{0}" > /etc/shells
+else
+    grep -q "^{0}$" /etc/shells || echo "{0}" >> /etc/shells
+fi
+'@ -f "$Link/$Name" | Out-File -FilePath $AfterInstallScript -Encoding ascii
+
+        @'
+if [ "$1" = 0 ] ; then
+    if [ -f /etc/shells ] ; then
+        TmpFile=`/bin/mktemp /tmp/.powershellmXXXXXX`
+        grep -v '^{0}$' /etc/shells > $TmpFile
+        cp -f $TmpFile /etc/shells
+        rm -f $TmpFile
+    fi
+fi
+'@ -f "$Link/$Name" | Out-File -FilePath $AfterRemoveScript -Encoding ascii
+    }
+    elseif ($IsUbuntu) {
+        $AfterInstallScript = [io.path]::GetTempFileName()
+        $AfterRemoveScript = [io.path]::GetTempFileName()
+        @'
+#!/bin/sh
+set -e
+case "$1" in
+    (configure)
+        add-shell "{0}"
+    ;;
+    (abort-upgrade|abort-remove|abort-deconfigure)
+        exit 0
+    ;;
+    (*)
+        echo "postinst called with unknown argument '$1'" >&2
+        exit 0
+    ;;
+esac
+'@ -f "$Link/$Name" | Out-File -FilePath $AfterInstallScript -Encoding ascii
+
+        @'
+#!/bin/sh
+set -e
+case "$1" in
+        (remove)
+        remove-shell "{0}"
+        ;;
+esac
+'@ -f "$Link/$Name" | Out-File -FilePath $AfterRemoveScript -Encoding ascii
+    }
+
+
+    # there is a weird bug in fpm
+    # if the target of the powershell symlink exists, `fpm` aborts
+    # with a `utime` error on OS X.
+    # so we move it to make symlink broken
+    $symlink_dest = "$Destination/$Name"
+    $hack_dest = "./_fpm_symlink_hack_powershell"
+    if ($IsOSX) {
+        if (Test-Path $symlink_dest) {
+            Write-Warning "Move $symlink_dest to $hack_dest (fpm utime bug)"
+            Move-Item $symlink_dest $hack_dest
+        }
+    }
+
+    # run ronn to convert man page to roff
+    $RonnFile = Join-Path $PSScriptRoot "/assets/powershell.1.ronn"
+    $RoffFile = $RonnFile -replace "\.ronn$"
+
+    # Run ronn on assets file
+    # Run does not play well with files named powershell6.0.1, so we generate and then rename
+    Start-NativeExecution { ronn --roff $RonnFile }
+
+    # Setup for side-by-side man pages (noop if primary package)
+    $FixedRoffFile = $RoffFile -replace "powershell.1$", "$Name.1"
+    if ($Name -ne "powershell") {
+        Move-Item $RoffFile $FixedRoffFile
+    }
+
+    # gzip in assets directory
+    $GzipFile = "$FixedRoffFile.gz"
+    Start-NativeExecution { gzip -f $FixedRoffFile }
+
+    $ManFile = Join-Path "/usr/local/share/man/man1" (Split-Path -Leaf $GzipFile)
+
+    # Change permissions for packaging
+    Start-NativeExecution {
+        find $Staging -type d | xargs chmod 755
+        find $Staging -type f | xargs chmod 644
+        chmod 644 $GzipFile
+        chmod 755 "$Staging/$Name" # only the executable should be executable
+    }
+
+    # Setup package dependencies
+    # These should match those in the Dockerfiles, but exclude tools like Git, which, and curl
+    $Dependencies = @()
+    if ($IsUbuntu) {
+        $Dependencies = @(
+            "libc6",
+            "libcurl3",
+            "libgcc1",
+            "libssl1.0.0",
+            "libstdc++6",
+            "libtinfo5",
+            "libunwind8",
+            "libuuid1",
+            "zlib1g"
+        )
+        # Please note the different libicu package dependency!
+        if ($IsUbuntu14) {
+            $Dependencies += "libicu52"
+        } elseif ($IsUbuntu16) {
+            $Dependencies += "libicu55"
+        }
+    } elseif ($IsRedHatFamily) {
+        $Dependencies = @(
+            "glibc",
+            "libicu",
+            "openssl",
+            "libunwind",
+            "uuid",
+            "zlib"
+        )
+
+        if($IsFedora -or $IsCentOS)
+        {
+            $Dependencies += "libcurl"
+            $Dependencies += "libgcc"
+            $Dependencies += "libstdc++"
+            $Dependencies += "ncurses-base"
+        }
+
+        if($IsOpenSUSE)
+        {
+            $Dependencies += "libgcc_s1"
+            $Dependencies += "libstdc++6"
+        }
+    }
+
+    # iteration is "debian_revision"
+    # usage of this to differentiate distributions is allowed by non-standard
+    if ($IsUbuntu14) {
+        $Iteration += "ubuntu1.14.04.1"
+    } elseif ($IsUbuntu16) {
+        $Iteration += "ubuntu1.16.04.1"
+    }
+
+    # We currently only support:
+    # CentOS 7
+    # Fedora 24+
+    # OpenSUSE 42.1 (13.2 might build but is EOL)
+    # Also SEE: https://fedoraproject.org/wiki/Packaging:DistTag
+    if ($IsCentOS) {
+        $rpm_dist = "el7.centos"
+    } elseif ($IsFedora) {
+        $version_id = $LinuxInfo.VERSION_ID
+        $rpm_dist = "fedora.$version_id"
+    } elseif ($IsOpenSUSE) {
+        $version_id = $LinuxInfo.VERSION_ID
+        $rpm_dist = "suse.$version_id"
+    }
+
+
+    $Arguments = @(
+        "--force", "--verbose",
+        "--name", $Name,
+        "--version", $Version,
+        "--iteration", $Iteration,
+        "--maintainer", "PowerShell Team <PowerShellTeam@hotmail.com>",
+        "--vendor", "Microsoft Corporation",
+        "--url", "https://microsoft.com/powershell",
+        "--license", "MIT License",
+        "--description", $Description,
+        "--category", "shells",
+        "-t", $Type,
+        "-s", "dir"
+    )
+    if ($IsRedHatFamily) {
+        $Arguments += @("--rpm-dist", $rpm_dist)
+        $Arguments += @("--rpm-os", "linux")
+    }
+    foreach ($Dependency in $Dependencies) {
+        $Arguments += @("--depends", $Dependency)
+    }
+    if ($AfterInstallScript) {
+       $Arguments += @("--after-install", $AfterInstallScript)
+    }
+    if ($AfterRemoveScript) {
+       $Arguments += @("--after-remove", $AfterRemoveScript)
+    }
+    $Arguments += @(
+        "$Staging/=$Destination/",
+        "$GzipFile=$ManFile",
+        "/tmp/$Name=$Link"
+    )
+    # Build package
+    try {
+        $Output = Start-NativeExecution { fpm $Arguments }
+    } finally {
+        if ($IsOSX) {
+            # this is continuation of a fpm hack for a weird bug
+            if (Test-Path $hack_dest) {
+                Write-Warning "Move $hack_dest to $symlink_dest (fpm utime bug)"
+                Move-Item $hack_dest $symlink_dest
