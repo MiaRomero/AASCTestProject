@@ -1,4 +1,4 @@
-Configuration SampleConfig2 {
+Configuration GHSampleDSC {
 
     # Import the module that contains the resources we're using.
     Import-DscResource -ModuleName PsDesiredStateConfiguration
